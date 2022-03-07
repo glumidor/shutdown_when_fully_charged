@@ -7,7 +7,9 @@ while true; do
 	pmset -g batt 
 	echo
 	percent=$(pmset -g batt | grep "InternalBattery" | awk -F ";" '{print $1}' | awk -F " " '{print $3}' | sed "s/%//g" | sed "s/\s//g")
-	remaining=$(pmset -g batt | grep "InternalBattery" | awk -F ";" '{print $3}' | awk -F " " '{print $1}' | awk -F ":" '{print $2}' | sed "s/\s//g")
+	remaining_hour=$(pmset -g batt | grep "InternalBattery" |  awk -F ";" '{print $3}' | awk -F " " '{print $1}' | awk -F ":" '{print $1}' | sed "s/\s//g")
+	remaining_min=$(pmset -g batt | grep "InternalBattery" |  awk -F ";" '{print $3}' | awk -F " " '{print $1}' | awk -F ":" '{print $2}' | sed "s/\s//g")
+	remaining=$(expr $remaining_hour \* 60 + $remaining_min)
 	echo
 	echo $percent "% charged"
 	echo $remaining "min remaining"
@@ -19,7 +21,6 @@ while true; do
 
 			pmset -g batt
 
-			remaining=$(pmset -g batt | grep "InternalBattery" | grep "finishing charge"| awk -F ";" '{print $3}' | awk -F " " '{print $1}' | awk -F ":" '{print $2}' | sed "s/\s//g")
 			
 			restzeit=$(expr $remaining + 5) # min
 
