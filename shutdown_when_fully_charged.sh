@@ -40,7 +40,7 @@ while true; do
 
 			afplay /System/Library/Sounds/Submarine.aiff
 			sleep 10
-			# sudo shutdown -h now
+			sudo shutdown -h now
 			exit
 	fi
 	
