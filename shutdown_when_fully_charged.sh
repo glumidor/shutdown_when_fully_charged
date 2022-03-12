@@ -23,9 +23,9 @@ while true; do
 
 			remaining_hour=$(pmset -g batt | grep "InternalBattery" | grep "finishing charge" | awk -F ";" '{print $3}' | awk -F " " '{print $1}' | awk -F ":" '{print $1}' | sed "s/\s//g")
 			remaining_min=$(pmset -g batt | grep "InternalBattery" |  grep "finishing charge" | awk -F ";" '{print $3}' | awk -F " " '{print $1}' | awk -F ":" '{print $2}' | sed "s/\s//g")
-			remaining=$(expr $remaining_hour \* 60 + $remaining_min)
+			remaining=$(expr $remaining_hour \* 60 + $remaining_min 2>/dev/null)
 			
-			restzeit=$(expr $remaining + 5) # min
+			restzeit=$(expr $remaining + 5 2>/dev/null) # min
 
 			while [ $restzeit -ge 0 ]
 			do 	
